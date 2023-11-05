@@ -24,23 +24,30 @@
 
 </script>
 
-<h1>Use elements double the track width and the loop will be smooth, ideally do one loop and then duplicate item in js. You can also group them to slide the whole thing over too if the element group equals the track width</h1>
+<h1 style="text-align: center">Infinite Scroll Animation</h1>
 
-<section class="media-scroller-container" data-animated='false'>
-	<ul class="media-scroller">
-		<li class='media-element'>1</li>
-		<li class='media-element'>2</li>
-		<li class='media-element'>3</li>
-		<li class='media-element'>4</li>
-		<li class='media-element'>5</li>
-		<li class='media-element'>6</li>
-		<li class='media-element'>7</li>
-		<li class='media-element'>8</li>
-		<li class='media-element'>9</li>
-		<li class='media-element'>10</li>
-		<li class='media-element'>11</li>
-	</ul>
-</section>
+<div class="scroller-container" data-speed="fast">
+  <ul class="tag-list scroller__inner">
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JS</li>
+    <li>SSG</li>
+    <li>webdev</li>
+    <li>animation</li>
+    <li>UI/UX</li>
+  </ul>
+</div>
+
+<div class="scroller-container" data-direction="right" data-speed="slow">
+  <div class="scroller__inner">
+    <img src="https://i.pravatar.cc/150?img=1" alt="" />
+    <img src="https://i.pravatar.cc/150?img=2" alt="" />
+    <img src="https://i.pravatar.cc/150?img=3" alt="" />
+    <img src="https://i.pravatar.cc/150?img=4" alt="" />
+    <img src="https://i.pravatar.cc/150?img=5" alt="" />
+    <img src="https://i.pravatar.cc/150?img=6" alt="" />
+  </div>
+</div>
 
 <style>
 
@@ -48,12 +55,11 @@
 		text-wrap: balance;
 		text-align: center;
 	}
-	.media-scroller-container {
-		/* max-width: 600px; */
+	.scroller-container {
+		max-width: 600px;
 	}
 
-	.media-scroller-container[data-animated="true"] {
-		border: 1px solid red;
+	.scroller-container[data-animated="true"] {
 		overflow: hidden;
 		-webkit-mask: linear-gradient(
 			90deg,
@@ -66,8 +72,12 @@
 	}
 
 
-	.media-scroller {
-		--_spacing: 50px;
+	.scroller__inner {
+		padding-block: 50px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 25px;
+		/* --_spacing: 50px;
 		display: grid;
 		grid-auto-flow: column;
 		grid-auto-columns: 15%;
@@ -79,15 +89,38 @@
 		scroll-padding-inline: var(--_spacing);
 
 		animation: scroll 5s linear infinite;
+		flex-wrap: wrap; */
+	}
+
+	.scroller-container[data-animated="true"] .scroller__inner {
+		width: max-content;
 		flex-wrap: nowrap;
-		width: fit-content;
+		animation: scroll var(--_animation-duration, 40s)
+    var(--_animation-direction, forwards);
 	}
 
 	@keyframes scroll {
 		to {
-			transform: translateX(-100%);
+			transform: translateX(calc(-50%) - 0.5rem);
 		}
 	}
+
+	.scroller[data-direction="right"] {
+  --_animation-direction: reverse;
+}
+
+.scroller[data-direction="left"] {
+  --_animation-direction: forwards;
+}
+
+.scroller[data-speed="fast"] {
+  --_animation-duration: 20s;
+}
+
+.scroller[data-speed="slow"] {
+  --_animation-duration: 60s;
+}
+
 	.media-element {
 		background-color: rgb(40, 40, 112);
 		height: 200px;
